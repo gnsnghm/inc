@@ -1,18 +1,26 @@
 <template>
-  <div>
-    <h1>Login</h1>
-    <form @submit.prevent="login">
-      <div>
-        <label for="userId">User ID:</label>
-        <input type="text" v-model="userId" required>
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" v-model="password" required>
-      </div>
-      <button type="submit">Login</button>
-    </form>
-    <router-link to="/register">Register</router-link>
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="card" style="width: 15rem;margin: 5rem;">
+          <div class="card-body">
+            <h3 class="card-title text-center">Login</h3>
+            <form @submit.prevent="login">
+              <div class="mb-3">
+                <label for="userId" class="form-label">User ID</label>
+                <input type="text" v-model="userId" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" v-model="password" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+            <div class="text-center mt-3">
+              <router-link to="/register">Register</router-link>
+            </div>
+          </div>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -25,6 +33,14 @@ export default {
       password: ''
     };
   },
+  created() {
+    const user = this.$cookies.get('user');
+    if (user) {
+      // 自動ログイン処理
+      this.$store.dispatch('login', user);
+      this.$router.push('/mypage');
+    }
+  },
   methods: {
     async login() {
       try {
@@ -36,7 +52,7 @@ export default {
         const data = await response.json();
         if (data.success) {
           this.$store.dispatch('login', data.user);
-          this.$cookies.set('user', data.user); // クッキーにユーザー情報を保存
+          this.$cookies.set('user', data.user);
           this.$router.push('/mypage');
         } else {
           alert('Login failed');
@@ -48,3 +64,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

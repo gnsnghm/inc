@@ -4,6 +4,9 @@ import router from './router';
 import store from './store';
 import VueCookies from 'vue-cookies';
 
+import 'bootstrap/dist/css/bootstrap.min.css'; // 追加
+import 'bootstrap'; // 追加
+
 const app = createApp(App);
 
 app.use(router);

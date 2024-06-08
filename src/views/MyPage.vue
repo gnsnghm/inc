@@ -1,31 +1,35 @@
 <template>
-  <div>
-    <h1>My Page</h1>
-    <button @click="logout">Logout</button>
-    <form @submit.prevent="registerIncident">
-      <div>
-        <label for="subject">Subject:</label>
-        <input type="text" v-model="subject" required>
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="card" style="width: 25rem;margin:5rem;">
+          <div class="card-body">
+            <h3 class="card-title text-center">Register Incident</h3>
+            <form @submit.prevent="registerIncident">
+              <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" v-model="subject" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="occurrenceDate" class="form-label">Occurrence Date</label>
+                <input type="date" v-model="occurrenceDate" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="content" class="form-label">Content</label>
+                <textarea v-model="content" class="form-control" rows="3" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="threatType" class="form-label">Threat Type</label>
+                <input type="text" v-model="threatType" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <input type="text" v-model="status" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Register Incident</button>
+            </form>
+          </div>
+        </div>
       </div>
-      <div>
-        <label for="occurrenceDate">Occurrence Date:</label>
-        <input type="date" v-model="occurrenceDate" required>
-      </div>
-      <div>
-        <label for="content">Content:</label>
-        <textarea v-model="content" required></textarea>
-      </div>
-      <div>
-        <label for="threatType">Threat Type:</label>
-        <input type="text" v-model="threatType" required>
-      </div>
-      <div>
-        <label for="status">Status:</label>
-        <input type="text" v-model="status" required>
-      </div>
-      <button type="submit">Register Incident</button>
-    </form>
-    <router-link to="/search">Search Incidents</router-link>
   </div>
 </template>
 
@@ -43,7 +47,7 @@ export default {
   },
   methods: {
     async registerIncident() {
-      const user = this.$cookies.get('user'); // クッキーからユーザー情報を取得
+      const user = this.$cookies.get('user');
       if (!user) {
         alert('Please login first');
         this.$router.push('/');
@@ -71,12 +75,18 @@ export default {
       } catch (error) {
         alert('Failed to register incident');
       }
-    },
-    logout() {
-      this.$store.dispatch('logout');
-      this.$cookies.remove('user'); // クッキーからユーザー情報を削除
-      this.$router.push('/');
     }
   }
 };
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  width: 100%;
+}
+</style>
