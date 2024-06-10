@@ -43,7 +43,7 @@ export default {
   async created() {
     const id = this.$route.params.id;
     try {
-      const response = await fetch(`http://localhost:3000/incidents/${id}`);
+      const response = await fetch(`${process.env.VUE_APP_API_BASE_URL}/incidents/${id}`);
       this.incident = await response.json();
     } catch (error) {
       alert('Failed to load incident');
@@ -53,7 +53,7 @@ export default {
     async addUpdate() {
       const id = this.$route.params.id;
       try {
-        const response = await fetch(`http://localhost:3000/incidents/${id}/updates`, {
+        const response = await fetch(`${process.env.VUE_APP_API_BASE_URL}/incidents/${id}/updates`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ updateContent: this.updateContent })
@@ -72,7 +72,7 @@ export default {
     async deleteIncident() {
       const id = this.$route.params.id;
       try {
-        const response = await fetch(`http://localhost:3000/incidents/${id}`, {
+        const response = await fetch(`${process.env.VUE_APP_API_BASE_URL}/incidents/${id}`, {
           method: 'DELETE'
         });
         const data = await response.json();

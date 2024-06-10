@@ -52,7 +52,7 @@ export default {
   methods: {
     async search() {
       try {
-        const response = await fetch(`http://localhost:3000/incidents?subject=${this.searchQuery}`);
+        const response = await fetch(`${process.env.VUE_APP_API_BASE_URL}/incidents?subject=${this.searchQuery}`);
         this.incidents = await response.json();
       } catch (error) {
         alert('Failed to search incidents');
@@ -60,7 +60,7 @@ export default {
     },
     async fetchAllIncidents() {
       try {
-        const response = await fetch('http://localhost:3000/incidents');
+        const response = await fetch(`${process.env.VUE_APP_API_BASE_URL}/incidents`);
         this.allIncidents = await response.json();
       } catch (error) {
         alert('Failed to fetch all incidents');

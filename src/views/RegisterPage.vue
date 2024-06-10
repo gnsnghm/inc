@@ -43,7 +43,7 @@ export default {
   methods: {
     async register() {
       try {
-        const response = await fetch('http://localhost:3000/register', {
+        const response = await fetch(`${process.env.VUE_APP_API_BASE_URL}/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ userId: this.userId, username: this.username, password: this.password })

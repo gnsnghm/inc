@@ -54,7 +54,7 @@ export default {
         return;
       }
       try {
-        const response = await fetch('http://localhost:3000/incidents', {
+        const response = await fetch(`${process.env.VUE_APP_API_BASE_URL}/incidents`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
