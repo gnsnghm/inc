@@ -27,6 +27,7 @@
             <ul class="list-group list-group-flush mt-3">
               <li v-for="incident in allIncidents" :key="incident.id" class="list-group-item">
                 <router-link :to="'/incident/' + incident.id">{{ incident.subject }}</router-link>
+                脅威レベル：{{incident.threat_type}} / 状況：{{incident.status}}
               </li>
             </ul>
           </div>
