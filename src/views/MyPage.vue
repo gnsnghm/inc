@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-        <div class="card" style="width: 25rem;margin:5rem;">
+        <div class="card mt-5">
           <div class="card-body">
             <h3 class="card-title text-center">Register Incident</h3>
             <form @submit.prevent="registerIncident">
@@ -23,13 +23,21 @@
               </div>
               <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
-                <input type="text" v-model="status" class="form-control" required>
+                <select v-model="statusId" class="form-select" required>
+                  <option v-for="status in statuses" :value="status.id" :key="status.id">
+                    {{ status.name }}
+                  </option>
+                </select>
               </div>
               <button type="submit" class="btn btn-primary w-100">Register Incident</button>
             </form>
+            <div class="text-center mt-3">
+              <router-link to="/search">Search Incidents</router-link>
+            </div>
           </div>
         </div>
-      </div>
+        <button @click="logout" class="btn btn-secondary w-100 mt-3">Logout</button>
+    </div>
   </div>
 </template>
 
@@ -42,10 +50,22 @@ export default {
       occurrenceDate: '',
       content: '',
       threatType: '',
-      status: ''
+      statusId: '',
+      statuses: []
     };
   },
+  async created() {
+    await this.fetchStatuses();
+  },
   methods: {
+    async fetchStatuses() {
+      try {
+        const response = await fetch(`${process.env.VUE_APP_API_BASE_URL}/statuses`);
+        this.statuses = await response.json();
+      } catch (error) {
+        alert('Failed to fetch statuses');
+      }
+    },
     async registerIncident() {
       const user = this.$cookies.get('user');
       if (!user) {
@@ -63,7 +83,7 @@ export default {
             occurrenceDate: this.occurrenceDate,
             content: this.content,
             threatType: this.threatType,
-            status: this.status
+            statusId: this.statusId
           })
         });
         const data = await response.json();
@@ -75,6 +95,11 @@ export default {
       } catch (error) {
         alert('Failed to register incident');
       }
+    },
+    logout() {
+      this.$store.dispatch('logout');
+      this.$cookies.remove('user');
+      this.$router.push('/');
     }
   }
 };
@@ -82,6 +107,7 @@ export default {
 
 <style scoped>
 .container {
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;

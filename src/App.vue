@@ -14,6 +14,9 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/search">Search</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/status">Status</router-link>
+            </li>
             <li v-if="isLoggedIn" class="nav-item">
               <a class="nav-link" href="#" @click="logout">Logout</a>
             </li>
