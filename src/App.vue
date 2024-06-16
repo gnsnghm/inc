@@ -8,17 +8,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
+            <li v-if="!isLoginPage" class="nav-item">
               <router-link class="nav-link" to="/">Home</router-link>
             </li>
-            <li class="nav-item">
+            <li v-if="!isLoginPage" class="nav-item">
               <router-link class="nav-link" to="/search">Search</router-link>
             </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/status">Status</router-link>
+            <li v-if="!isLoginPage" class="nav-item">
+              <router-link class="nav-link" to="/statuses">Manage Statuses</router-link>
             </li>
-            <li v-if="isLoggedIn" class="nav-item">
+            <li v-if="isLoggedIn && !isLoginPage" class="nav-item">
               <a class="nav-link" href="#" @click="logout">Logout</a>
+            </li>
+            <li v-else-if="isLoginPage" class="nav-item">
+              <router-link class="nav-link" to="/">Login</router-link>
             </li>
           </ul>
         </div>
@@ -30,9 +33,19 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isLoginPage: false
+    };
+  },
   computed: {
     isLoggedIn() {
-      return this.$store.state.user !== null;
+      return !!this.$cookies.get('user');
+    }
+  },
+  watch: {
+    $route(to) {
+      this.isLoginPage = to.name === 'LoginPage';
     }
   },
   methods: {
@@ -41,6 +54,9 @@ export default {
       this.$cookies.remove('user');
       this.$router.push('/');
     }
+  },
+  created() {
+    this.isLoginPage = this.$route.name === 'LoginPage';
   }
 };
 </script>

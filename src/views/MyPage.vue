@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-        <div class="card mt-5">
+        <div class="card mt-5" style="width:400px;">
           <div class="card-body">
             <h3 class="card-title text-center">Register Incident</h3>
             <form @submit.prevent="registerIncident">
@@ -31,12 +31,8 @@
               </div>
               <button type="submit" class="btn btn-primary w-100">Register Incident</button>
             </form>
-            <div class="text-center mt-3">
-              <router-link to="/search">Search Incidents</router-link>
-            </div>
           </div>
         </div>
-        <button @click="logout" class="btn btn-secondary w-100 mt-3">Logout</button>
     </div>
   </div>
 </template>
@@ -107,7 +103,7 @@ export default {
 
 <style scoped>
 .container {
-  height: 100vh;
+  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
