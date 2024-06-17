@@ -55,7 +55,7 @@ export default {
           this.$cookies.set('user', data.user);
           this.$router.push('/mypage');
         } else {
-          alert('Login failed');
+          alert(this.userId + ' does not exist or password is unmatched');
         }
       } catch (error) {
         alert('Login failed');

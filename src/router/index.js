@@ -5,6 +5,7 @@ import MyPage from "../views/MyPage.vue";
 import SearchPage from "../views/SearchPage.vue";
 import IncidentDetail from "../views/IncidentDetail.vue";
 import StatusPage from "../views/StatusPage.vue";
+import InitializePage from "../views/InitializePage.vue";
 
 const routes = [
   { path: "/", name: "LoginPage", component: LoginPage },
@@ -27,6 +28,11 @@ const routes = [
     name: "StatusPage",
     component: StatusPage,
     meta: { requiresAuth: true },
+  },
+  {
+    path: "/initialize",
+    name: "InitializePage",
+    component: InitializePage,
   },
 ];
 
